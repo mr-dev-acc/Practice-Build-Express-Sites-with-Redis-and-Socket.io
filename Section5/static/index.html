@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket.io Namespace</title
+	</head>
+	<body>
+		<h1>Socket.io Namespace</h1>
+		<ul id="list"></ul>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			const socket1 = io('/namespace1', {transports: ['websocket'], upgrade: false});
+			const socket2 = io('/namespace2', {transports: ['websocket'], upgrade: false});
+			const addLi = (msg) => {
+				const li = document.createElement('li');
+				li.appendChild(document.createTextNode(msg));
+				document.getElementById('list').appendChild(li);
+			}
+			socket1.on('event', addLi);
+			socket2.on('event', addLi);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket.io</title
+	</head>
+	<body>
+		<h1>Socket.io</h1>
+		<label for="name">Name:</label>
+		<input type="text" id="name"/>
+		<button id="send">Say Hello!</button>
+		<ul id="list"></ul>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			const socket = io({transports: ['websocket'], upgrade: false});
+			const addLi = (msg) => {
+				const li = document.createElement('li');
+				li.appendChild(document.createTextNode(msg));
+				document.getElementById('list').appendChild(li);
+			}
+			document.getElementById('send').addEventListener('click', (e) => {
+				socket.emit('name', document.getElementById('name').value);
+			});
+			socket.on('name', (name) => addLi(name + ' says Hello!'));
+			socket.on('user.events', addLi);
+		</script>
+	</body>
+</html>
